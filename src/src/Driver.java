@@ -14,11 +14,13 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
     private AffineTransform tx;
 
     Player player;
-    Bound bound;
+    //Bound bound;
+    Bounds bounds;
 
     public void update(){
         player.move();
-        bound.move();
+        //bound.move();
+        bounds.move();
     }
 
 
@@ -30,7 +32,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
         //g.fillRect(475, 375, 50, 50); //placement, remove later
 
         player.paint(g);
-        bound.paint(g);
+        //bound.paint(g);
+        bounds.paint(g);
     }
 
     private Image getImage(String path){
@@ -64,7 +67,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
         //sprite instantiation
         player = new Player("yarisright.png");
-        bound = new Bound();
+        //bound = new Bound();
+        bounds = new Bounds();
 
         f.add(this);
         t = new Timer(10, this);

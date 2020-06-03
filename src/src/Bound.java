@@ -5,7 +5,7 @@ public class Bound {
     //dimension
     private int lastHeight;
     private int tunnelDepth = 600;
-    private int width = 50;
+    public int width = 50;
     private int boty,topy;
     private Rectangle bottom, top;
     private int screenWidth = 1000;
@@ -34,7 +34,6 @@ public class Bound {
 
         bottom = new Rectangle(spawnX, screenHeight - boty, width, botHeight);
         top = new Rectangle(spawnX, 0, width, topHeight);
-        System.out.println("bottom y: "+ bottom.getY() +" ; top y: " + top.getY());
     }
 
     public Bound() {
@@ -50,7 +49,6 @@ public class Bound {
         bottom = new Rectangle(spawnX, screenHeight - boty, width, botHeight);
         top = new Rectangle(spawnX, 0, width, topHeight);
 
-        System.out.println("bottom y: "+ bottom.getY() +" ; top y: " + top.getY());
     }
 
     public void paint(Graphics g){
@@ -74,6 +72,34 @@ public class Bound {
         bottom.setLocation(x, bottom.y);
     }
 
+    public Rectangle getBottom() {
+        return bottom;
+    }
+
+    public void setBottom(Rectangle bottom) {
+        this.bottom = bottom;
+    }
+
+    public Rectangle getTop() {
+        return top;
+    }
+
+    public void setTop(Rectangle top) {
+        this.top = top;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getLastHeight(){
+        return boty;
+    }
+
     public int randomNumber(){
         int num = 0;
         if(rowCounter == 1){
@@ -94,7 +120,6 @@ public class Bound {
                     break;
             }
         }
-
         return num;
     }
 }
