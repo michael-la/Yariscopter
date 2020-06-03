@@ -5,12 +5,16 @@ import java.net.URL;
 public class Player {
 
     //instance variables
-    private double x, y;				//position in map
+    private double x, y;		    //position in map
     private double vx, vy;			//velocity
     private double ax, ay;			//acceleration
     private double angle;			//current flight angle
     private double rv;	    		//rotation velocity
     private double appliedThrust;	//current forward thrust from yaris
+
+    //image variables
+    private int imgWidth = 1024;
+    private int imgHeight = 768;
 
     //display variables
     private double scale = 0.25;					//size of yaris on screen
@@ -22,7 +26,7 @@ public class Player {
     private Image img;							//image
 
     //physics variables
-    private int mass = 100;
+    private int mass = 20;
     private double lift = 0;
     private double gravity = 0.15;
     private double power = 1;
@@ -38,26 +42,22 @@ public class Player {
     private String path;
 
     public Player(String fileName){
-        x = 0;
-        y = 0;
+        x = displayX;
+        y = displayY - offsety;
         angle = 0;
         vx = 5;
         vy = 0;
-        rv = 0;
         img = getImage(fileName);
         alive = true;
-        tx = AffineTransform.getTranslateInstance(displayX, displayY - offsety);
-        tx.scale(scale, scale);
-        bounds = new Rectangle();
+
+        //bounds = new Rectangle();
     }
 
     public void move(){
         updateAccelerations();
-        //double fy =
         vy -= ay;
-        displayY += vy;
-        tx.setToTranslation(displayX, displayY - offsety);
-        tx.scale(scale, scale);
+        y += vy;
+
     }
 
     private void updateAccelerations() {
@@ -68,16 +68,16 @@ public class Player {
     public void up(){
         lift += power;
     }
-
     public void down(){
         lift -= power;
     }
     public void neutral(){
         lift = 0;
     }
+
     public void paint(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(img, tx, null);
+        g2.drawImage(img, (int) x, (int) y,(int) (imgWidth * scale), (int) (imgHeight * scale), null);
         g2.setColor(Color.BLACK);
     }
 
