@@ -9,16 +9,23 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
     private int screen_height = 800;
     private int screen_width = 1000;
     private Timer t;
-    private int stage = 0;
 
-    private AffineTransform tx;
+    private boolean gameOver = false;
+
+
+    //private AffineTransform tx;
 
     Player player;
-    Bound bound;
+    //Bound bound;
+    Bounds bounds;
 
     public void update(){
         player.move();
-        bound.move();
+        //bound.move();
+        bounds.move();
+        if(bounds.didCollide(player)){
+            endGame();
+        }
     }
 
 
@@ -27,10 +34,14 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
         g.setColor(Color.CYAN);
         g.fillRect(0, 0, screen_width, screen_height);
         g.setColor(Color.BLACK);
-        //g.fillRect(475, 375, 50, 50); //placement, remove later
 
         player.paint(g);
-        bound.paint(g);
+        bounds.paint(g);
+
+        if(gameOver){
+            g.setColor(Color.red);
+            g.drawString("Score: " + bounds.boundQueue.peekLast().getCount(), 450, 400);
+        }
     }
 
     private Image getImage(String path){
@@ -46,6 +57,12 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
     public void startGame(){
 
+    }
+
+    public void endGame(){
+        player.stop();
+        bounds.stop();
+        gameOver = true;
     }
 
     /////////////////////////////////////////////// DRIVER ///////////////////////////////////////////
@@ -64,7 +81,8 @@ public class Driver extends JPanel implements ActionListener, KeyListener, Mouse
 
         //sprite instantiation
         player = new Player("yarisright.png");
-        bound = new Bound();
+        //bound = new Bound();
+        bounds = new Bounds();
 
         f.add(this);
         t = new Timer(10, this);
