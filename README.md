@@ -1,2 +1,4 @@
 # Yariscopter
-Helicopter game but with a flying yaris
+Fly a Yaris through a randomly generated winding tunnel.
+
+Tunnel implemented as a queue.
